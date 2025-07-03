@@ -1,43 +1,135 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
 
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    <title>Box</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f8ff;
+        }
+        .container {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .box:hover {
+            background: #ADD8E6;
+        }
+        .box.active {
+            background: #ADD8E6;
+        }
+        .content {
+            display: none;
+            margin-top: 10px;
+        }
+        .box.active .content {
+            display: block;
+        }
+        .dropdown {
+            margin-top: 5px;
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .add-to-cart {
+            width: 100%;
+            padding: 10px;
+            background: #0000FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box" onclick="Box(1)">
+            <input type="radio" name="unit" onclick="Box(1)"> <strong>1 Unit</strong> 
+            <div class="content" id="box1">
+                <label>Size:</label>
+                <select class="dropdown">
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                </select>
+                <label>Color:</label>
+                <select class="dropdown">
+                    <option>Black</option>
+                    <option>Red</option>
+                    <option>Blue</option>
+                </select>
+            </div>
+        </div>
+        <div class="box" onclick="Box(2)">
+            <input type="radio" name="unit" onclick="Box(2)"> <strong>2 Units</strong> 
+            <div class="content" id="box2">
+                <label>Size:</label>
+                <select class="dropdown">
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                </select>
+                <label>Color:</label>
+                <select class="dropdown">
+                    <option>Black</option>
+                    <option>Red</option>
+                    <option>Blue</option>
+                </select>
+            </div>
+        </div>
+        <div class="box" onclick="Box(3)">
+            <input type="radio" name="unit" onclick="Box(3)"> <strong>3 Units</strong> 
+            <div class="content" id="box3">
+                <label>Size:</label>
+                <select class="dropdown">
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                </select>
+                <label>Color:</label>
+                <select class="dropdown">
+                    <option>white</option>
+                    <option>Red</option>
+                    <option>Yellow</option>
+                </select>
+            </div>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+    </div>
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
-jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    <script>
+        function Box(boxId) {
+            let boxes = document.querySelectorAll(".box");
+            boxes.forEach((box, index) => {
+                let content = document.getElementById("box" + (index + 1));
+                if (index + 1 === boxId) {
+                    box.classList.add("active");
+                    content.style.display = "block";
+                } else {
+                    box.classList.remove("active");
+                    content.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
